@@ -1,30 +1,42 @@
 package be.helpper.goedkeuringen;
 
+import be.helpper.prestaties.Prestatie;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
-@Embeddable
+@Entity
 @Table(name = "goedkeuringen")
-//@Access(AccessType.FIELD)
 public class Goedkeuring {
-//    private long prestatieId;
+    @Id
+    @Column(name = "prestatie_id")
+    private Long prestatieId;
     private LocalDate goedgekeurd;
     private String commentaar;
     private int uren;
 
-//    public long getPrestatieId() {
-//        return prestatieId;
-//    }
+    public Prestatie getPrestatie() {
+        return prestatie;
+    }
+
+    public void setPrestatie(Prestatie prestatie) {
+        this.prestatie = prestatie;
+    }
+
+    @OneToOne(mappedBy = "goedkeuring")
+    private Prestatie prestatie;
 
     protected Goedkeuring() {
     }
-
-    public Goedkeuring(LocalDate goedgekeurd, String commentaar, int uren) {
+    public long getPrestatieId() {
+        return prestatieId;
+    }
+    public Goedkeuring(long id, LocalDate goedgekeurd, String commentaar, int uren) {
         this.goedgekeurd = goedgekeurd;
         this.commentaar = commentaar;
         this.uren = uren;
+        this.prestatieId = id;
     }
 
     public LocalDate getGoedgekeurd() {
