@@ -1,6 +1,7 @@
 package be.helpper.users;
 
 import be.helpper.exceptions.ReaderExceptionMapper;
+import be.helpper.prestaties.Prestatie;
 import io.smallrye.mutiny.Multi;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -26,4 +27,5 @@ public class UserController {
         }
         return user;
     }
+
 }

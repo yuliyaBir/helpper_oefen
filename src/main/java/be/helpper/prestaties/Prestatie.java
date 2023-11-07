@@ -28,9 +28,7 @@ public class Prestatie {
         this.omschrijving = omschrijving;
         this.assistentId = assistentId;
         this.budgethouderId = budgethouderId;
-        this.goedkeuring = new LinkedHashSet<>(
-
-        );
+        this.goedkeuring = new LinkedHashSet<>();
     }
 
     public Prestatie(String naam, String omschrijving, long assistentId, long budgethouderId) {
