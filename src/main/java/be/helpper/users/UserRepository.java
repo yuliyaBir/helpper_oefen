@@ -1,10 +1,9 @@
 package be.helpper.users;
 
-import io.quarkus.hibernate.orm.panache.PanacheRepository;
-import jakarta.decorator.Decorator;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 import java.util.Optional;
 
@@ -18,4 +17,16 @@ public class UserRepository {
     public User findById(Long id){
         return em.find(User.class, id);
     }
+    public User findByEmail(String email){
+        return em.find(User.class, email);
+    }
+//    public User findByFamilienaam(String familienaam){
+//        return em.find(User.class,familienaam);
+//    }
+public Optional<User> findByFamilienaam(String familienaam, String voornaam) {
+    TypedQuery<User> query = em.createQuery("SELECT usr FROM User usr WHERE usr.familienaam = :familienaam and usr.voornaam = :voornaam", User.class);
+    query.setParameter("familienaam", familienaam);
+    query.setParameter("voornaam", voornaam);
+    return query.getResultStream().findFirst();
+}
 }

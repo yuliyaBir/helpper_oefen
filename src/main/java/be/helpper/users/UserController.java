@@ -27,5 +27,9 @@ public class UserController {
         }
         return user;
     }
-
+    @GET
+    @Path("/familienaamEnVoornaam")
+    public User findByFamilienaam(@QueryParam("familienaam") String familienaam, @QueryParam("voornaam") String voornaam){
+        return service.findByFamilienaam(familienaam, voornaam);
+    }
 }
