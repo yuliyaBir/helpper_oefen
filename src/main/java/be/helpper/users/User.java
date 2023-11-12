@@ -22,7 +22,8 @@ public class User {
     @NotBlank
     @Column(nullable = false)
     private String wachtwoord;
-//    @ManyToMany(mappedBy = "users")
+
+    //    @ManyToMany(mappedBy = "users")
 //    private Set<Rol> rollen;
 //    @Enumerated(EnumType.STRING)
 //    private Rol rol;
