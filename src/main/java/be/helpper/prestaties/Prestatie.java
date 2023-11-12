@@ -4,15 +4,15 @@ import be.helpper.goedkeuringen.Goedkeuring;
 import be.helpper.users.User;
 import jakarta.persistence.*;
 
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "prestaties")
 public class Prestatie {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
     private String naam;
     private String omschrijving;
@@ -22,29 +22,30 @@ public class Prestatie {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "budgethouder_id")
     private User budgethouder;
-    @ElementCollection
-    @CollectionTable(name = "goedkeuringen", joinColumns =
-    @JoinColumn(name = "prestatie_id"))
-    private Set<Goedkeuring> goedkeuring;
-    public Prestatie(long id, String naam, String omschrijving, User assistent, User budgethouder) {
-        this.id = id;
+
+    public void setGoedkeuring(Goedkeuring goedkeuring) {
+        this.goedkeuring = goedkeuring;
+    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "goedkeuring_id")
+    private Goedkeuring goedkeuring;
+    public Prestatie(String naam, String omschrijving, User assistent, User budgethouder) {
         this.naam = naam;
         this.omschrijving = omschrijving;
         this.assistent = assistent;
         this.budgethouder = budgethouder;
-        this.assistent = assistent;
-        this.budgethouder = budgethouder;
-        this.goedkeuring = new LinkedHashSet<>();
+        this.goedkeuring = null;
+//                new Goedkeuring(id, LocalDate.MIN, "", 0);
     }
 
-    public Prestatie(String naam, String omschrijving, User assistent, User budgethouder) {
-        this.id = 0;
-        this.naam = naam;
-        this.omschrijving = omschrijving;
-        this.assistent = assistent;
-        this.budgethouder = budgethouder;
-        this.goedkeuring = new LinkedHashSet<>();
-    }
+//    public Prestatie(String naam, String omschrijving, User assistent, User budgethouder) {
+//
+//        this.naam = naam;
+//        this.omschrijving = omschrijving;
+//        this.assistent = assistent;
+//        this.budgethouder = budgethouder;
+//        this.goedkeuring = new Goedkeuring(LocalDate.EPOCH, "", 0);
+//    }
 
     public Prestatie() {
     }
@@ -68,7 +69,17 @@ public class Prestatie {
     public User getBudgethouder() {
         return budgethouder;
     }
-    public Set<Goedkeuring> getGoedkeuring() {
-        return Collections.unmodifiableSet(goedkeuring);
+
+    public Goedkeuring getGoedkeuring() {
+        return goedkeuring;
     }
+    public void setId(long id) {
+        this.id = id;
+    }
+
+
+
+//    public Set<Goedkeuring> getGoedkeuring() {
+//        return Collections.unmodifiableSet(goedkeuring);
+//    }
 }

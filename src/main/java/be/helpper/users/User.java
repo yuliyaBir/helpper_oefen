@@ -2,6 +2,7 @@ package be.helpper.users;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.Objects;
 
@@ -12,9 +13,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(insertable=false, updatable=false)
     private Long id;
+    @NotBlank
     private String voornaam;
+    @NotBlank
     private String familienaam;
+    @NotBlank
     private String email;
+    @NotBlank
     @Column(nullable = false)
     private String wachtwoord;
 //    @ManyToMany(mappedBy = "users")
