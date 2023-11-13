@@ -1,6 +1,7 @@
 package be.helpper.goedkeuringen;
 
 import be.helpper.prestaties.PrestatieService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -16,6 +17,7 @@ public class GoedkeuringResource {
     @Inject
     GoedkeuringService goedkeuringService;
     @POST
+    @RolesAllowed("budgethouder")
     @Path("/nieuwVoorPrestatie/{id}")
     public void createGoedkeuring(@Valid Goedkeuring goedkeuring, @PathParam("id") long id){
         goedkeuringService.createGoedkeuringVoorPrestatie(id, goedkeuring);

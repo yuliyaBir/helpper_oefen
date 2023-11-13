@@ -6,6 +6,7 @@ import io.quarkus.security.AuthenticationFailedException;
 import io.smallrye.jwt.build.Jwt;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.NotFoundException;
 import org.eclipse.microprofile.config.inject.
         ConfigProperty;
 
@@ -21,19 +22,17 @@ public class AuthService {
         this.issuer = issuer;
         this.userService = userService;
     }
-//    public Uni<String> authenticate(AuthRequest authRequest){
-//        return userService.findByEmail(authRequest.email()
-//                .transform(user -> {
-//                    if (user == null || !UserService.matches(user.getWachtwoord(),
-//                            authRequest.wachtwoord())) {
-//                        throw new AuthenticationFailedException
-//                                ("Invalid credentials");
-//                    }
-//                    return Jwt.issuer(issuer)
-//                            .upn(user.getEmail())
-//                            .groups(new HashSet<>(user.roles))
-//                            .expiresIn(Duration.ofHours(1L))
-//                            .sign();
-//                });
-//    }
+    public String authenticate(AuthRequest authRequest){
+        var user = userService.findByEmail(authRequest.email());
+        if (user == null || !UserService.matches(user.getWachtwoord(),
+                            authRequest.wachtwoord())) {
+                        throw new AuthenticationFailedException
+                                ("Invalid credentials");
+                    }
+        return Jwt.issuer(issuer)
+                            .upn(user.getEmail())
+                            .groups(new HashSet<>())
+                            .expiresIn(Duration.ofHours(1L))
+                            .sign();
+    }
 }

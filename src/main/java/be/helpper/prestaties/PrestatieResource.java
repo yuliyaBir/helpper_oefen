@@ -3,6 +3,7 @@ package be.helpper.prestaties;
 import be.helpper.dto.PrestatieMetAssistentNaam;
 import be.helpper.dto.PrestatieMetBudgethouderNaam;
 import be.helpper.users.UserService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -24,11 +25,13 @@ public class PrestatieResource {
     @Inject
     UserService userService;
 
-    // maak nieuwe prestatie
+
     public record NieuwePrestatie(@NotBlank String naam, @NotBlank String omschrijving, @NotNull @Positive long assistentId, @NotBlank String budgethouderVoornaam, @NotBlank String budgethouderFamilienaam){
     }
+    // maak nieuwe prestatie
     @POST
     @Path("/nieuw")
+    @RolesAllowed("assistent")
     @Transactional
     public void createPrestatie(@Valid NieuwePrestatie nieuwePrestatie){
         var budgethouder = userService.findByFamilienaam(nieuwePrestatie.budgethouderFamilienaam(), nieuwePrestatie.budgethouderVoornaam());
@@ -38,6 +41,7 @@ public class PrestatieResource {
     }
     // get prestatieById
     @GET
+    @RolesAllowed({"assistent", "budgethouder"})
     @Path("/{id}")
     public Response.ResponseBuilder findPrestatieById(@PathParam("id") long id){
         var prestatie = prestatieService.findPrestatieById(id).orElseThrow(NotFoundException::new);
@@ -50,24 +54,28 @@ public class PrestatieResource {
 
     // get lijst met prestaties zonder goedkeuring voor assistent
     @GET
+    @RolesAllowed("assistent")
     @Path("assistent/zonderGoedkeuring")
     public List<PrestatieMetBudgethouderNaam> findPrestatiesZonderGoedkeuringVoorAssistent(){
         return prestatieService.findPrestatiesZonderGoedkeuring().stream().map(PrestatieMetBudgethouderNaam::new).toList();
     }
     // get lijst met prestaties zonder goedkeuring voor budgethouder
     @GET
+    @RolesAllowed("budgethouder")
     @Path("budgethouder/zonderGoedkeuring")
     public List<PrestatieMetAssistentNaam> findPrestatiesZonderGoedkeuringVoorBudgethouder(){
         return prestatieService.findPrestatiesZonderGoedkeuring().stream().map(PrestatieMetAssistentNaam::new).toList();
     }
     // get lijst met prestaties met goedkeuring voor assistent
     @GET
+    @RolesAllowed("assistent")
     @Path("assistent/metGoedkeuring")
     public List<PrestatieMetBudgethouderNaam> lijstVanPrestatiesMetGoedkeuringVoorAssistent(){
         return prestatieService.lijstVanPrestatiesMetGoedkeuring().stream().map(PrestatieMetBudgethouderNaam::new).toList();
     }
     // get lijst met prestaties met goedkeuring voor budgethouder
     @GET
+    @RolesAllowed("budgethouder")
     @Path("budgethouder/metGoedkeuring")
     public List<PrestatieMetAssistentNaam> lijstVanPrestatiesMetGoedkeuringVoorBudgethouder(){
         return prestatieService.lijstVanPrestatiesMetGoedkeuring().stream().map(PrestatieMetAssistentNaam::new).toList();

@@ -15,12 +15,12 @@ public class UserService {
     public Optional<User> findById(Long id){
         return userRepository.findById(id);
     }
-    public Optional<User> findByEmail(String email){
+    public User findByEmail(String email){
         return userRepository.findByEmail(email);
     }
 
-    public static boolean matches(User user, String wachtwoord) {
-        return BcryptUtil.matches(wachtwoord, user.getWachtwoord());
+    public static boolean matches(String userWachtwoord, String wachtwoord) {
+        return BcryptUtil.matches(wachtwoord, userWachtwoord);
     }
     public User findByFamilienaam(String familienaam, String voornaam){
         return userRepository.findByFamilienaam(familienaam, voornaam).orElseThrow(NotFoundException::new);

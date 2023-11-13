@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Helpper</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+    <script type="text/jsx">
+        const app = document.getElementById('app');
+        function Header({ title }) {
+            return <h1>{title ? title : "Default title"}</h1>
+        }
+
+        function HomePage() {
+            const names = ["Ada Lovelace", "Grace Hopper", "Margaret Hamilton"]
+
+            function handleClick() {
+              console.log("dfjkslf");
+            }
+
+            return (
+                <div>
+                    <Header title="Develop. Preview. Ship. 🚀" />
+                    <ul>
+                        {names.map((name) => (
+                            <li key={name}>{name}</li>
+                        ))}
+                    </ul>
+
+                    <button onClick={handleClick}>Like</button>
+                </div>
+            )
+        }
+        ReactDOM.render(<HomePage />, app)
+    </script>
+<!--    <script src="js/index.js" defer></script>-->
+</head>
+<body>
+    <div id="app"></div>
+</body>
+</html>
