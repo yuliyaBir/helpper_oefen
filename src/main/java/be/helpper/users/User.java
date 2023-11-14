@@ -30,7 +30,7 @@ public class User {
     @Username
     private String email;
     @NotNull
-//    @Column(nullable = false)
+    @Column(nullable = false)
     @Password
     private String wachtwoord;
     @Roles
@@ -44,7 +44,7 @@ public class User {
         this.rol = rol;
         this.wachtwoord = BcryptUtil.bcryptHash(wachtwoord);
     }
-    public User() {
+    protected User() {
     }
 
     //    public void add(Rol rol){
@@ -74,13 +74,10 @@ public class User {
     public String getWachtwoord() {
         return wachtwoord;
     }
-    //    public Rol getRol() {
-//        return rol;
-//    }
     public String getRol() {
         return rol;
     }
-    @JsonProperty("password")
+//    @JsonProperty("password")
     public void setWachtwoord(String wachtwoord) {
         this.wachtwoord = wachtwoord;
     }
