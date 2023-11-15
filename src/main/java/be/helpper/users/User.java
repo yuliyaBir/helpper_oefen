@@ -45,7 +45,6 @@ public class User {
         } else {
             throw new RuntimeException("Rol is niet correct ingevuld");
         }
-//        this.rol = rol;
         this.wachtwoord = BcryptUtil.bcryptHash(wachtwoord);
     }
     protected User() {
@@ -74,6 +73,14 @@ public class User {
     }
     public void setWachtwoord(String wachtwoord) {
         this.wachtwoord = BcryptUtil.bcryptHash(wachtwoord);
+    }
+
+    public void setRol(String rol) {
+        if (rol.equals("assistent") || rol.equals("budgethouder")){
+            this.rol = rol;
+        } else {
+            throw new RuntimeException("Rol is niet correct ingevuld");
+        }
     }
 
     @Override
