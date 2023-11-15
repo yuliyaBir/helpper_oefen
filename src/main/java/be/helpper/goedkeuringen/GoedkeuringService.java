@@ -19,7 +19,4 @@ public class GoedkeuringService {
         var goedkeuringMetId = goedkeuringRepository.createGoedkeuring(goedkeuring);
         prestatieRepository.updatePrestatie(prestatieId, goedkeuringMetId);
     }
-    public Optional<Prestatie> findGoedkeuringById(long id){
-        return prestatieRepository.findPrestatieById(id);
-    }
 }

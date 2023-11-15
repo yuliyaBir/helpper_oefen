@@ -20,8 +20,7 @@ public class PrestatieService {
     public List<Prestatie> lijstVanPrestatiesMetGoedkeuring(){
         return prestatieRepository.lijstVanPrestatiesMetGoedkeuring();
     }
-//    @Transactional
-//    public long updateGoedkeuringId(long prestatieId){
-//        return prestatieRepository.updateGoedkeuringId(prestatieId);
-//    }
+    public void deletePrestatie(long id){
+        prestatieRepository.deletePrestatie(id);
+    }
 }

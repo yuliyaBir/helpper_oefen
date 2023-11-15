@@ -1,13 +1,20 @@
 package be.helpper.users;
 
 
+import io.quarkus.elytron.security.common.BcryptUtil;
+import io.quarkus.security.jpa.Password;
+import io.quarkus.security.jpa.Roles;
+import io.quarkus.security.jpa.UserDefinition;
+import io.quarkus.security.jpa.Username;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "users")
+@UserDefinition
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,37 +25,31 @@ public class User {
     @NotBlank
     private String familienaam;
     @NotBlank
+    @Username
     private String email;
-    @NotBlank
+    @NotNull
     @Column(nullable = false)
+    @Password
     private String wachtwoord;
-
-
-
-
-    //    @ManyToMany(mappedBy = "users")
-//    private Set<Rol> rollen;
-//    @Enumerated(EnumType.STRING)
-//    private Rol rol;
-    public User(String voornaam, String familienaam, String email, String wachtwoord) {
-        this.id = Long.valueOf(0);
+    @Roles
+    @Column(name = "rollen")
+    @NotBlank
+    private String rol;
+    public User(String voornaam, String familienaam, String email, String wachtwoord, String rol) {
+        this.id = 0L;
         this.voornaam = voornaam;
         this.familienaam = familienaam;
         this.email = email;
+        if (rol.equals("assistent") || rol.equals("budgethouder")){
+            this.rol = rol;
+        } else {
+            throw new RuntimeException("Rol is niet correct ingevuld");
+        }
 //        this.rol = rol;
-        this.wachtwoord = wachtwoord;
+        this.wachtwoord = BcryptUtil.bcryptHash(wachtwoord);
     }
-    public User() {
+    protected User() {
     }
-
-    //    public void add(Rol rol){
-//        if (!rollen.add(rol)){
-//           throw new UserHeeftDezeRolAlException();
-//        }
-//    }
-//    public Set<Rol> getRollen(){
-//        return Collections.unmodifiableSet(rollen);
-//    }
     public long getId() {
         return id;
     }
@@ -68,9 +69,12 @@ public class User {
     public String getWachtwoord() {
         return wachtwoord;
     }
-    //    public Rol getRol() {
-//        return rol;
-//    }
+    public String getRol() {
+        return rol;
+    }
+    public void setWachtwoord(String wachtwoord) {
+        this.wachtwoord = BcryptUtil.bcryptHash(wachtwoord);
+    }
 
     @Override
     public boolean equals(Object o) {
