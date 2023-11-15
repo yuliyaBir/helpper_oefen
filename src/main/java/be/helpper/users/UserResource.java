@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
+import org.jboss.logging.annotations.Param;
 
 
 @Path("/api/users")
@@ -26,30 +27,26 @@ public class UserResource {
     @GET
     @RolesAllowed({"assistent", "budgethouder"})
     @Path("/email")
-    public User findByEmail(String email) {
-        return service.findByEmail(email);
+    public Response findByEmail(@QueryParam("email") String email) {
+        User user = service.findByEmail(email).orElseThrow(NotFoundException::new);
+
+        if (user != null) {
+            return Response.ok(user).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).entity("User not found for email: " + email).build();
+        }
     }
     @GET
     @RolesAllowed({"assistent", "budgethouder"})
     @Path("/familienaamEnVoornaam")
-    public Response.ResponseBuilder findByFamilienaam(@QueryParam("familienaam") String familienaam, @QueryParam("voornaam") String voornaam){
+    public Response findByFamilienaam(@QueryParam("familienaam") String familienaam, @QueryParam("voornaam") String voornaam){
         var user =  service.findByFamilienaam(familienaam, voornaam);
         if (user != null){
-            return Response.ok(user,MediaType.APPLICATION_JSON_TYPE);
+            return Response.ok(user).build();
         } else {
-            return Response.status(404, "User is niet gevonden.");
+            return Response.status(Response.Status.NOT_FOUND).entity("User is niet gevonden.").build();
         }
     }
-//    @GET
-//    @Path("/{id}")
-//    public Response.ResponseBuilder findById(@PathParam("id") long id) {
-//        var user =  service.findById(id);
-//        if (user != null){
-//        return Response.ok(user,MediaType.APPLICATION_JSON_TYPE);
-//        } else {
-//            return Response.status(404, "User is niet gevonden.");
-//        }
-//    }
     @Transactional(Transactional.TxType.REQUIRED)
     @POST
     @PermitAll
@@ -61,6 +58,7 @@ public class UserResource {
     }
     @Transactional(Transactional.TxType.REQUIRED)
     @DELETE
+    @RolesAllowed({"assistent", "budgethouder"})
     @Path("/delete/{id}")
     public void deleteUser(@PathParam("id") long id){
         service.deleteUser(id);

@@ -17,16 +17,17 @@ public class UserRepository {
     @Inject
     EntityManager em;
 
-    public void persist(User user) {
-        em.persist(user);
-    }
-    @RolesAllowed({"assistent", "budgethouder"})
+//    public void persist(User user) {
+//        em.persist(user);
+//    }
     public Optional<User> findById(Long id) {
         return Optional.ofNullable(em.find(User.class, id));
     }
 
-    public User findByEmail(String email) {
-        return Optional.ofNullable(em.find(User.class, email)).orElseThrow(NotFoundException::new);
+    public Optional<User> findByEmail(String email) {
+        var query = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+        query.setParameter("email", email);
+        return query.getResultStream().findFirst();
     }
 
     public Optional<User> findByFamilienaam(String familienaam, String voornaam) {

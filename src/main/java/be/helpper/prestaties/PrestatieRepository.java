@@ -32,4 +32,9 @@ public class PrestatieRepository{
         prestatie.setGoedkeuring(goedkeuring);
         em.persist(prestatie);
     }
+    @Transactional
+    public void deletePrestatie(long id){
+        var prestatie = em.find(Prestatie.class, id, LockModeType.PESSIMISTIC_WRITE);
+        em.remove(prestatie);
+    }
 }

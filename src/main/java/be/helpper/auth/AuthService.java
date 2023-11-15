@@ -23,7 +23,7 @@ public class AuthService {
         this.userService = userService;
     }
     public String authenticate(AuthRequest authRequest){
-        var user = userService.findByEmail(authRequest.email());
+        var user = userService.findByEmail(authRequest.email()).orElseThrow(NotFoundException::new);
         if (user == null || !UserService.matches(user.getWachtwoord(),
                             authRequest.wachtwoord())) {
                         throw new AuthenticationFailedException

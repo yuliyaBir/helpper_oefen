@@ -1,6 +1,8 @@
 package be.helpper.goedkeuringen;
 
+import be.helpper.prestaties.Prestatie;
 import be.helpper.prestaties.PrestatieService;
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;

@@ -1,8 +1,6 @@
 package be.helpper.users;
 
 
-import be.helpper.rollen.Rol;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.security.jpa.Password;
 import io.quarkus.security.jpa.Roles;
@@ -35,26 +33,23 @@ public class User {
     private String wachtwoord;
     @Roles
     @Column(name = "rollen")
+    @NotBlank
     private String rol;
     public User(String voornaam, String familienaam, String email, String wachtwoord, String rol) {
-        this.id = Long.valueOf(0);
+        this.id = 0L;
         this.voornaam = voornaam;
         this.familienaam = familienaam;
         this.email = email;
-        this.rol = rol;
+        if (rol.equals("assistent") || rol.equals("budgethouder")){
+            this.rol = rol;
+        } else {
+            throw new RuntimeException("Rol is niet correct ingevuld");
+        }
+//        this.rol = rol;
         this.wachtwoord = BcryptUtil.bcryptHash(wachtwoord);
     }
     protected User() {
     }
-
-    //    public void add(Rol rol){
-//        if (!rollen.add(rol)){
-//           throw new UserHeeftDezeRolAlException();
-//        }
-//    }
-//    public Set<Rol> getRollen(){
-//        return Collections.unmodifiableSet(rollen);
-//    }
     public long getId() {
         return id;
     }
@@ -77,9 +72,8 @@ public class User {
     public String getRol() {
         return rol;
     }
-//    @JsonProperty("password")
     public void setWachtwoord(String wachtwoord) {
-        this.wachtwoord = wachtwoord;
+        this.wachtwoord = BcryptUtil.bcryptHash(wachtwoord);
     }
 
     @Override

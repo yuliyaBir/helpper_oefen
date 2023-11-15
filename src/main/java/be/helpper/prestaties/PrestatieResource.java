@@ -28,6 +28,11 @@ public class PrestatieResource {
 
     public record NieuwePrestatie(@NotBlank String naam, @NotBlank String omschrijving, @NotNull @Positive long assistentId, @NotBlank String budgethouderVoornaam, @NotBlank String budgethouderFamilienaam){
     }
+    private record PrestatieBeknopt(long id, String naam, String omschrijving, String assistentVoornaam, String assistentFamilienaam, String budgethouderVoornaam, String budgethouderFamilienaam){
+        private PrestatieBeknopt(Prestatie prestatie) {
+           this(prestatie.getId(), prestatie.getNaam(), prestatie.getOmschrijving(), prestatie.getAssistent().getVoornaam(), prestatie.getAssistent().getFamilienaam(),prestatie.getBudgethouder().getVoornaam(), prestatie.getBudgethouder().getFamilienaam());
+        }
+    }
     // maak nieuwe prestatie
     @POST
     @Path("/nieuw")
@@ -43,12 +48,12 @@ public class PrestatieResource {
     @GET
     @RolesAllowed({"assistent", "budgethouder"})
     @Path("/{id}")
-    public Response.ResponseBuilder findPrestatieById(@PathParam("id") long id){
+    public Response findPrestatieById(@PathParam("id") long id){
         var prestatie = prestatieService.findPrestatieById(id).orElseThrow(NotFoundException::new);
         if (prestatie != null){
-            return Response.ok(prestatie,MediaType.APPLICATION_JSON_TYPE);
+            return Response.ok(new PrestatieBeknopt(prestatie)).build();
         } else{
-            return Response.status(404, "Prestatie is nit gevonden.");
+            return Response.status(Response.Status.NOT_FOUND).entity("Prestatie is niet gevonden.").build();
         }
     }
 
@@ -76,8 +81,14 @@ public class PrestatieResource {
     // get lijst met prestaties met goedkeuring voor budgethouder
     @GET
     @RolesAllowed("budgethouder")
-    @Path("budgethouder/metGoedkeuring")
+    @Path("/budgethouder/metGoedkeuring")
     public List<PrestatieMetAssistentNaam> lijstVanPrestatiesMetGoedkeuringVoorBudgethouder(){
         return prestatieService.lijstVanPrestatiesMetGoedkeuring().stream().map(PrestatieMetAssistentNaam::new).toList();
+    }
+    @DELETE
+    @RolesAllowed({"budgethouder", "assistent"})
+    @Path("/delete/{id}")
+    public void deletePrestatie(@PathParam("id") long id){
+        prestatieService.deletePrestatie(id);
     }
 }

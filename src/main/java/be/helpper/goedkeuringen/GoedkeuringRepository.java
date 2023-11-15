@@ -11,13 +11,12 @@ import java.util.Optional;
 public class GoedkeuringRepository {
     @Inject
     EntityManager em;
-    @Transactional
     public Goedkeuring createGoedkeuring(Goedkeuring goedkeuring){
         em.persist(goedkeuring);
         em.flush();
         return em.find(Goedkeuring.class, goedkeuring.getId());
     }
-    public Optional<Goedkeuring> findGoedkeuringById(long id){
-        return Optional.ofNullable(em.find(Goedkeuring.class, id));
+    public void deleteGoedkeuring(Goedkeuring goedkeuring){
+        em.remove(goedkeuring);
     }
 }
