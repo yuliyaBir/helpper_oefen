@@ -17,6 +17,9 @@ public class PrestatieService {
     public List<Prestatie> findPrestatiesZonderGoedkeuring(){
         return prestatieRepository.lijstVanPrestatiesZonderGoedkeuring();
     }
+    public int aantalPristatiesZonderGoedkeuring(){
+        return prestatieRepository.aantalPristatiesZonderGoedkeuring();
+    }
     public List<Prestatie> lijstVanPrestatiesMetGoedkeuring(){
         return prestatieRepository.lijstVanPrestatiesMetGoedkeuring();
     }

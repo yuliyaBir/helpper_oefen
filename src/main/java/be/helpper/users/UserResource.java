@@ -10,6 +10,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import org.jboss.logging.annotations.Param;
 
+import java.util.List;
+
 
 @Path("/api/users")
 @Produces(MediaType.APPLICATION_JSON)
@@ -66,7 +68,13 @@ public class UserResource {
     @GET
     @RolesAllowed({"assistent", "budgethouder"})
     @Path("/me")
-    public String me(@Context SecurityContext securityContext) {
+    public String getCurrentUser(@Context SecurityContext securityContext) {
         return securityContext.getUserPrincipal().getName();
     }
+//    @GET
+//    @RolesAllowed({"assistent", "budgethouder"})
+//    @Path("/me")
+//    public String getCurrentUser() {
+//        return service.getCurrentUser().getEmail();
+//    }
 }

@@ -31,7 +31,7 @@ public class AuthService {
                     }
         return Jwt.issuer(issuer)
                             .upn(user.getEmail())
-                            .groups(new HashSet<>())
+                            .groups(user.getRol())
                             .expiresIn(Duration.ofHours(1L))
                             .sign();
     }

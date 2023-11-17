@@ -3,6 +3,7 @@ package be.helpper.prestaties;
 import be.helpper.dto.PrestatieMetAssistentNaam;
 import be.helpper.dto.PrestatieMetBudgethouderNaam;
 import be.helpper.users.UserService;
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -84,6 +85,13 @@ public class PrestatieResource {
     @Path("/budgethouder/metGoedkeuring")
     public List<PrestatieMetAssistentNaam> lijstVanPrestatiesMetGoedkeuringVoorBudgethouder(){
         return prestatieService.lijstVanPrestatiesMetGoedkeuring().stream().map(PrestatieMetAssistentNaam::new).toList();
+    }
+    @GET
+//    @RolesAllowed({"assistent", "budgethouder"})
+    @PermitAll
+    @Path("aantalPrestatiesZonderGoedkeuring")
+    public int aantalPrestatiesZonderGoedkeuring(){
+        return prestatieService.aantalPristatiesZonderGoedkeuring();
     }
     @DELETE
     @RolesAllowed({"budgethouder", "assistent"})

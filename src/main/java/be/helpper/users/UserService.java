@@ -1,15 +1,23 @@
 package be.helpper.users;
 
 import io.quarkus.elytron.security.common.BcryptUtil;
+import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.NotFoundException;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 
+import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
 
 public class UserService {
+    private final JsonWebToken jwt;
+    @Inject
+    public UserService(JsonWebToken jwt) {
+        this.jwt = jwt;
+    }
     @Inject
     UserRepository userRepository;
     public Optional<User> findById(Long id){
@@ -31,7 +39,7 @@ public class UserService {
     public void deleteUser(long id){
         userRepository.deleteUser(id);
     }
-    public void performWorkGeneratingError(){
-        userRepository.performWorkGeneratingError();
-    }
+//    public User getCurrentUser() {
+//        return findByEmail(jwt.getSubject()).orElseThrow(NotFoundException::new);
+//    }
 }

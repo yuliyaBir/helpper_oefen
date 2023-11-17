@@ -10,7 +10,7 @@ import jakarta.ws.rs.core.MediaType;
 
 
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/api/auth")
+    @Path("/api")
     public class AuthResource {
         private final AuthService authService;
         @Inject

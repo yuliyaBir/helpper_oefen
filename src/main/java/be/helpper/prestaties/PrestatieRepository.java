@@ -23,6 +23,12 @@ public class PrestatieRepository{
     public List<Prestatie> lijstVanPrestatiesZonderGoedkeuring(){
         return em.createQuery("select p from Prestatie p where p.goedkeuring = null").getResultList();
     }
+    // aantal prestaties zonder goedkeuring
+    public int aantalPristatiesZonderGoedkeuring(){
+        return em.createQuery("select p from Prestatie p where p.goedkeuring = null").getResultList().size();
+    }
+    // aantal prestaties zonder goedkeuring
+
     public List<Prestatie> lijstVanPrestatiesMetGoedkeuring(){
         return em.createQuery("select p from Prestatie p where p.goedkeuring != null").getResultList();
     }
