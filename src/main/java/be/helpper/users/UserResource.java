@@ -10,6 +10,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import org.jboss.logging.annotations.Param;
 
+import java.security.Principal;
+
 
 @Path("/api/users")
 @Produces(MediaType.APPLICATION_JSON)
@@ -25,7 +27,7 @@ public class UserResource {
         return service.findById(id).orElseThrow(NotFoundException::new);
     }
     @GET
-    @RolesAllowed({"assistent", "budgethouder"})
+    @PermitAll
     @Path("/email")
     public Response findByEmail(@QueryParam("email") String email) {
         User user = service.findByEmail(email).orElseThrow(NotFoundException::new);
@@ -64,9 +66,22 @@ public class UserResource {
         service.deleteUser(id);
     }
     @GET
-    @RolesAllowed({"assistent", "budgethouder"})
+    @PermitAll
     @Path("/me")
-    public String me(@Context SecurityContext securityContext) {
-        return securityContext.getUserPrincipal().getName();
+     public User userInfo(@Context SecurityContext securityContext) {
+        Principal userPrincipal = securityContext.getUserPrincipal();
+        if (userPrincipal != null) {
+            var userEmail = userPrincipal.getName();
+           return (User) findByEmail(userEmail).getEntity();
+        }
+        // translates to "no content" response
+        return null;
+    }
+    @GET
+    @PermitAll
+    @Path("public")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String freeForAll() {
+        return "Welcom to Helpper!";
     }
 }

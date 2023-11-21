@@ -4,6 +4,7 @@ import io.quarkus.elytron.security.common.BcryptUtil;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.NotFoundException;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import java.util.Optional;
 
@@ -12,6 +13,12 @@ import java.util.Optional;
 public class UserService {
     @Inject
     UserRepository userRepository;
+//    @Inject
+//    JsonWebToken jwt;
+//    @Inject
+//    public UserService(JsonWebToken jwt) {
+//        this.jwt = jwt;
+//    }
     public Optional<User> findById(Long id){
         return userRepository.findById(id);
     }
@@ -19,8 +26,8 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public static boolean matches(String userWachtwoord, String wachtwoord) {
-        return BcryptUtil.matches(wachtwoord, userWachtwoord);
+    public static boolean matches(User user, String wachtwoord) {
+        return BcryptUtil.matches(wachtwoord, user.getWachtwoord());
     }
     public User findByFamilienaam(String familienaam, String voornaam){
         return userRepository.findByFamilienaam(familienaam, voornaam).orElseThrow(NotFoundException::new);
@@ -31,7 +38,7 @@ public class UserService {
     public void deleteUser(long id){
         userRepository.deleteUser(id);
     }
-    public void performWorkGeneratingError(){
-        userRepository.performWorkGeneratingError();
-    }
+//    public Optional<User> getCurrentUser() {
+//        return findByEmail(jwt.getName());
+//    }
 }

@@ -17,9 +17,6 @@ public class UserRepository {
     @Inject
     EntityManager em;
 
-//    public void persist(User user) {
-//        em.persist(user);
-//    }
     public Optional<User> findById(Long id) {
         return Optional.ofNullable(em.find(User.class, id));
     }
@@ -48,9 +45,5 @@ public class UserRepository {
     public void deleteUser(long id) {
         var user = em.find(User.class, id);
         em.remove(user);
-    }
-
-    public void performWorkGeneratingError() {
-        em.find(User.class, Long.MAX_VALUE);
     }
 }

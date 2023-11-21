@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Budgethouder</title>
+    <script src="/js/budgethouder.js" defer type="module"></script>
+</head>
+<body>
+<h1>
+    Hello <span id="rol"> </span> <span id="voornaam"> </span> <span id="familienaam"></span>!
+</h1>
+<h3 id="jouwPrestatie">Jouw prestaties</h3>
+<nav id="navigatieBar">
+    <ul>
+        <li id="nieuwePrestaties"><a href="#"><span id="aantalNieuwePrestaties"></span> Nieuwe prestaties om goed te keuren</a></li>
+        <li id="goedgekeurdePrestaties"><a href="#">Goedgekeurde prestaties</a></li>
+    </ul>
+</nav>
+<div id="tabelRuimte" hidden>
+    <table>
+        <thead id="prestatieHead">
+        </thead>
+        <tbody id="prestatieBody"></tbody>
+    </table>
+</div>
+<br><div id="inputsRuimte" hidden></div>
+
+<a href="/index.html">Naar huis</a>
+</body>
+</html>

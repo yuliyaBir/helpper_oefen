@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NieuweGoedkeuring</title>
+    <script src="/js/nieuweGoedkeuring.js" defer type="module"></script>
+</head>
+<body>
+<h1>Goedkeuring voor prestatie toevoegen</h1>
+<table id="prestatieTable" hidden>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Naam</th>
+        <th>Omschrijving</th>
+        <th>Budgethouder</th>
+    </tr>
+    </thead>
+    <tbody id="prestatieBody"></tbody>
+</table>
+<br>
+<label>Commentaar:
+    <span id="commentaarFout" class="fout" hidden>Verplicht</span>
+    <input id="commentaar" required>
+</label>
+<label>Uren:
+    <span id="urenFout" class="fout" hidden>Verplicht nummer in te vullen</span>
+    <input id="uren" type="number" min="1" required>
+</label>
+<button id="toevoegen">Toevoegen</button>
+<br>
+<div  id="toegevoegd" hidden>
+    <h4>Dank je wel! De goedkeuring is toegevoegd!</h4>
+    <p> Je kan het zien in jouw account in toegeveogde prestaties.</p>
+</div>
+
+
+<br>
+<a href="index.html">Naar huis</a>
+<a href="budgethouder.html">Naar account</a>
+
+<div id="storing" class="fout" hidden>Er is een fout opgetreden, contacteer èèn van onze medewerkers op een nummer 1234567890.</div>
+<div id="conflict" class="fout" hidden></div>
+</body>
+</html>

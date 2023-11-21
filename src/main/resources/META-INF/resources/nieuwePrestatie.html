@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>NieuwePrestatie</title>
+    <script src="/js/nieuwePrestatie.js" defer type="module"></script>
+</head>
+<body>
+<h1>Prestatie toevoegen</h1>
+<label>Naam:
+    <span id="naamFout" class="fout" hidden>Verplicht</span>
+    <input id="naam" type="text" required autofocus></input>
+</label>
+<label>Omschrijving:
+    <span id="omschrijvingFout" class="fout" hidden>Verplicht</span>
+    <input id="omschrijving" required>
+</label>
+<label>Voornaam van budgethouder:
+    <span id="budgethouderVoornaamFout" class="fout" hidden>Verplicht</span>
+    <input id="budgethouderVoornaam" required>
+</label>
+<label>Familienaam van budgethouder:
+    <span id="budgethouderFamilienaamFout" class="fout" hidden>Verplicht</span>
+    <input id="budgethouderFamilienaam" required>
+</label> <br><br>
+<button id="toevoegen">Toevoegen</button>
+<br>
+<br>
+<table id="prestatieTable" hidden>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Naam</th>
+        <th>Omschrijving</th>
+        <th>Budgethouder</th>
+    </tr>
+    </thead>
+    <tbody id="prestatieBody"></tbody>
+</table>
+<br><br>
+<a href="index.html">Naar huis</a>
+<a href="assistent.html">Naar account</a>
+
+<div id="storing" class="fout" hidden>Er is een fout opgetreden, contacteer èèn van onze medewerkers op een nummer 1234567890.</div>
+<div id="conflict" class="fout" hidden></div>
+</body>
+</html>
