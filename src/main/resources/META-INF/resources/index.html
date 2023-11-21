@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Helpper</title>
+    <script src="/js/index.js" defer type="module"></script>
+</head>
+<body>
+<h1>Welcom to Helpper</h1>
+<h2>Dat is een site voor budgethouders en assistenten!</h2>
+<!--<h3>Om in te loggen duw een knop!</h3>-->
+<!--<button id="duw">Duw</button>-->
+
+<form action="j_security_check" method="post">
+    <div class="container">
+        <label for="j_username"><b>Email</b></label>
+        <input type="text" placeholder="Typ email" name="j_username" required>
+
+        <label for="j_password"><b>Wachtwoord</b></label>
+        <input type="password" placeholder="Typ wachtwoord" name="j_password" required>
+
+        <button type="submit">Log in</button> <button id="logout">Log uit</button>
+
+    </div>
+</form>
+<p hidden id="securedContentVoorAssistent"><a href="/assistent.html">Ga snel naar jouw account</a></p>
+<p hidden id="securedContentVoorBudgethouder"><a href="/budgethouder.html">Ga snel naar jouw account</a></p>
+
+<!--<h2 hidden id="hello">-->
+<!--    Hello <span id="rol"> </span> <span id="voornaam"> </span> <span id="familienaam"></span>!-->
+<!--</h2>-->
+<!--<h3 id="jouwPrestatie" hidden>Jouw prestaties</h3>-->
+<nav id="navigatieBar" hidden>
+</nav>
+<div id="tabelRuimte" hidden></div>
+<div id="inputsRuimte" hidden></div>
+<div id="fouten">
+    <p id="nietGevonden" hidden>Gebruiker is niet gevonden</p>
+    <p id="storing" hidden>Er is een fout opgetreden, contacteer èèn van onze medewerkers op een nummer 1234567890.</p>
+    <p id="verkeerdeRol" hidden> Je heb een verkeerde rol</p>
+</div>
+
+</body>
+</html>

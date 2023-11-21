@@ -10,18 +10,21 @@ import java.util.Optional;
 public class PrestatieService {
     @Inject
     PrestatieRepository prestatieRepository;
-    public void createPrestatie(Prestatie prestatie){
-        prestatieRepository.createPrestatie(prestatie);
+    public long createPrestatie(Prestatie prestatie){
+        return prestatieRepository.createPrestatie(prestatie);
     }
     public Optional<Prestatie> findPrestatieById(long id){ return prestatieRepository.findPrestatieById(id);}
-    public List<Prestatie> findPrestatiesZonderGoedkeuring(){
-        return prestatieRepository.lijstVanPrestatiesZonderGoedkeuring();
+    public List<Prestatie> lijstVanPrestatiesZonderGoedkeuringVoorBepaaldeAssistent(long assistentId){
+        return prestatieRepository.lijstVanPrestatiesZonderGoedkeuringVoorBepaaldeAssistent(assistentId);
     }
-    public int aantalPristatiesZonderGoedkeuring(){
-        return prestatieRepository.aantalPristatiesZonderGoedkeuring();
+    public List<Prestatie> lijstVanPrestatiesMetGoedkeuringVoorBepaaldeBudgethouder(long budgethouderId){
+        return prestatieRepository.lijstVanPrestatiesMetGoedkeuringVoorBepaaldeBudgethouder(budgethouderId);
     }
-    public List<Prestatie> lijstVanPrestatiesMetGoedkeuring(){
-        return prestatieRepository.lijstVanPrestatiesMetGoedkeuring();
+    public List<Prestatie> lijstVanPrestatiesZonderGoedkeuringVoorBepaaldeBudgethouder(long budgethouderId){
+        return prestatieRepository.lijstVanPrestatiesZonderGoedkeuringVoorBepaaldeBudgethouder(budgethouderId);
+    }
+    public List<Prestatie> lijstVanPrestatiesMetGoedkeuringVoorBepaaldeAssistent(long assistentId){
+        return prestatieRepository.lijstVanPrestatiesMetGoedkeuringVoorBepaaldeAssistent(assistentId);
     }
     public void deletePrestatie(long id){
         prestatieRepository.deletePrestatie(id);

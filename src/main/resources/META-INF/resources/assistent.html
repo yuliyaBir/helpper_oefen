@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Assistent</title>
+    <script src="/js/assistent.js" defer type="module"></script>
+</head>
+<body>
+<h1>
+    Hello <span id="rol"> </span> <span id="voornaam"> </span> <span id="familienaam"></span>!
+</h1>
+<h3 id="jouwPrestatie">Jouw prestaties</h3>
+<nav id="navigatieBar">
+    <ul>
+        <li id="toevoegen"><a href="nieuwePrestatie.html">Voeg een nieuwe prestatie toe.</a></li>
+        <li id="zonderGoedkeuring"><a href="#">Aangemaakte prestaties zonder goedkeuring</a></li>
+        <li id="metGoedkeuring"><a href="#">Aangemaakte prestaties met goedkeuring</a></li>
+    </ul>
+</nav>
+<div id="tabelRuimte" hidden>
+    <table>
+        <thead id="prestatieHead">
+
+        </thead>
+        <tbody id="prestatieBody"></tbody>
+    </table>
+</div>
+
+<br>
+<div id="inputsRuimte" hidden></div>
+<a href="/index.html">Naar huis</a>
+</body>
+</html>

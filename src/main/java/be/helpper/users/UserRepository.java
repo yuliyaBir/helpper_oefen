@@ -8,10 +8,8 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.GET;
 import jakarta.ws.rs.NotFoundException;
 
-import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
@@ -19,9 +17,6 @@ public class UserRepository {
     @Inject
     EntityManager em;
 
-//    public void persist(User user) {
-//        em.persist(user);
-//    }
     public Optional<User> findById(Long id) {
         return Optional.ofNullable(em.find(User.class, id));
     }
@@ -39,17 +34,16 @@ public class UserRepository {
         return query.getResultStream().findFirst();
     }
 
-
+    @Transactional
     public User createUser(User user) {
         em.persist(user);
         em.flush();
         return em.find(User.class, user.getId());
     }
 
-
+    @Transactional
     public void deleteUser(long id) {
         var user = em.find(User.class, id);
         em.remove(user);
     }
-
 }
