@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registratie</title>
+    <script src="/js/registratie.js" defer type="module"></script>
+</head>
+<body>
+<h1>Regestratie</h1>
+<label>Voornaam:
+    <span id="voornaamFout" class="fout" hidden>Verplicht</span>
+    <input id="voornaam" type="text" required autofocus></input>
+</label>
+<label>Familienaam:
+    <span id="familienaamFout" class="fout" hidden>Verplicht</span>
+    <input id="familienaam" required>
+</label>
+<label>Email:
+    <span id="emailFout" class="fout" hidden>Verplicht</span>
+    <input id="email" required type="email">
+</label>
+<label>Wachtwoord:
+    <span id="wachtwoordFout" class="fout" hidden>Verplicht</span>
+    <input id="wachtwoord" required type="password">
+</label>
+<label>Rol:
+    <select id="rol">
+        <option value="assistent" selected>Assistent</option>
+        <option value="budgethouder">Budgethouder</option>
+    </select></label>
+<button id="registreren">Registreer</button>
+<br><br>
+<div id="geregestreerd" hidden>Proficiat! Je bent jouw succes geregistreerd! <span><a href="index.html">Log maar in met jouw email en wachtwoord!</a></span></div>
+<br><br>
+<a href="index.html">Naar huis</a>
+<div id="storing" class="fout" hidden>Er is een fout opgetreden, contacteer èèn van onze medewerkers op een nummer 1234567890.</div>
+<div id="conflict" class="fout" hidden></div>
+</body>
+</html>

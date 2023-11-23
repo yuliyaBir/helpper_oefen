@@ -5,6 +5,7 @@ import io.smallrye.mutiny.Uni;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
@@ -38,7 +39,8 @@ public class UserRepository {
     public User createUser(User user) {
         em.persist(user);
         em.flush();
-        return em.find(User.class, user.getId());
+        return findById(user.getId()).get();
+//        return em.find(User.class, user.getId());
     }
 
     @Transactional

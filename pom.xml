@@ -92,6 +92,15 @@
       <artifactId>quarkus-test-security</artifactId>
       <scope>test</scope>
     </dependency>
+      <dependency>
+          <groupId>io.quarkus.resteasy.reactive</groupId>
+          <artifactId>resteasy-reactive</artifactId>
+          <version>3.5.0</version>
+      </dependency>
+      <dependency>
+          <groupId>org.jetbrains</groupId>
+          <artifactId>annotations</artifactId>
+      </dependency>
   </dependencies>
   <build>
     <plugins>

@@ -1,4 +1,4 @@
-package be.helpper.users;
+package be.helpper.exceptions;
 
 public class UserIsNietGevondenException extends RuntimeException {
     public UserIsNietGevondenException() {

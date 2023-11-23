@@ -13,7 +13,7 @@
         <th>Id</th>
         <th>Naam</th>
         <th>Omschrijving</th>
-        <th>Budgethouder</th>
+        <th>Assistent</th>
     </tr>
     </thead>
     <tbody id="prestatieBody"></tbody>
@@ -21,17 +21,17 @@
 <br>
 <label>Commentaar:
     <span id="commentaarFout" class="fout" hidden>Verplicht</span>
-    <input id="commentaar" required>
+    <input id="commentaar" required autofocus>
 </label>
 <label>Uren:
-    <span id="urenFout" class="fout" hidden>Verplicht nummer in te vullen</span>
+    <span id="urenFout" class="fout" hidden>Verplicht nummer vanaf 1 in te vullen</span>
     <input id="uren" type="number" min="1" required>
 </label>
-<button id="toevoegen">Toevoegen</button>
+<button id="toevoegen" disabled>Toevoegen</button>
 <br>
 <div  id="toegevoegd" hidden>
     <h4>Dank je wel! De goedkeuring is toegevoegd!</h4>
-    <p> Je kan het zien in jouw account in toegeveogde prestaties.</p>
+    <p><a href="budgethouder.html">Je kan het zien in jouw account in goedgekeurde prestaties.</a></p>
 </div>
 
 

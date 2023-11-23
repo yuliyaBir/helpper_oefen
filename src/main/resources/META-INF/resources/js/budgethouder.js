@@ -7,6 +7,7 @@ const metGoedkeuring = byId("goedgekeurdePrestaties");
 const prestatieBody = byId("prestatieBody");
 const tabelRuimte = byId("tabelRuimte");
 const prestatieHead = byId("prestatieHead");
+const tabelNaam = byId("tabelNaam");
 findHuidigeUser();
 async function findHuidigeUser() {
     const response = await fetch("/api/users/me");
@@ -22,22 +23,23 @@ async function findHuidigeUser() {
         metGoedkeuring.onclick = async function (){
              prestatiesMetGoedkeuring(user);
         }
-
     }
 }
 async function nieuwePrestaties(user){
     const response = await fetch(`prestaties/budgethouder/${user.id}/zonderGoedkeuring`);
     if (response.ok){
         const prestaties = await response.json();
+        if (prestaties.length !== 0){
         console.log(prestaties);
         toon("tabelRuimte");
+        tabelNaam.innerText = "Nieuwe prestaties zonder goedkeuring";
         verwijderChildElementenVan(prestatieHead);
         const th = document.createElement("tr");
         prestatieHead.appendChild(th);
         th.insertCell().innerText =  "Id";
         th.insertCell().innerText =  "Naam";
         th.insertCell().innerText =  "Omschrijving";
-        th.insertCell().innerText =  "Budgethouder";
+        th.insertCell().innerText =  "Assistent";
         verwijderChildElementenVan(prestatieBody);
         for (const prestatie of prestaties){
             const tr = prestatieBody.insertRow();
@@ -53,15 +55,20 @@ async function nieuwePrestaties(user){
                 sessionStorage.setItem("prestatie", JSON.stringify(prestatie));
                 window.location = "nieuweGoedkeuring.html";
         }
-    }
+        }
+    }else{
+            toon("geenPrestaties");
+        }
 }
 }
 async function prestatiesMetGoedkeuring(user) {
     const response = await fetch(`prestaties/budgethouder/${user.id}/metGoedkeuring`);
     if (response.ok) {
         const prestaties = await response.json();
+        if (prestaties.length !== 0){
         console.log(prestaties);
         toon("tabelRuimte");
+        tabelNaam.innerText = "Goedgekeurde prestaties";
         verwijderChildElementenVan(prestatieHead);
         const th = document.createElement("tr");
         prestatieHead.appendChild(th);
@@ -83,5 +90,9 @@ async function prestatiesMetGoedkeuring(user) {
             tr.insertCell().innerText = `${prestatie.goedkeuring.commentaar}`;
             tr.insertCell().innerText = `${prestatie.goedkeuring.uren}`;
         }
+    }
+    }
+    else{
+        toon("geenPrestaties");
     }
 }

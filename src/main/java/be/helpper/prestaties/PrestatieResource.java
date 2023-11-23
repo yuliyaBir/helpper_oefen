@@ -2,9 +2,10 @@ package be.helpper.prestaties;
 
 import be.helpper.dto.PrestatieMetAssistentNaam;
 import be.helpper.dto.PrestatieMetBudgethouderNaam;
+import be.helpper.exceptions.CustomError;
+import be.helpper.exceptions.UserHeeftVerkeerdeRolException;
 import be.helpper.users.UserService;
 import jakarta.annotation.security.RolesAllowed;
-import jakarta.ejb.DuplicateKeyException;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -14,6 +15,10 @@ import jakarta.validation.constraints.Positive;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.jboss.resteasy.reactive.server.ServerExceptionMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.List;
 
@@ -26,6 +31,22 @@ public class PrestatieResource {
     @Inject
     UserService userService;
 
+//    @ServerExceptionMapper({UserHeeftVerkeerdeRolException.class})
+//    public Response handleUserHeeftVerkeerdeRolException(UserHeeftVerkeerdeRolException cre) {
+//        return  Response.serverError()
+//                .header("X-CUSTOM-EXCEPTION", "500")
+//                .entity(new CustomError(500, "nok"))
+//                .build();
+//    }
+
+    @ServerExceptionMapper(UserHeeftVerkeerdeRolException.class)
+    public Response handleCustomRuntimeException(UserHeeftVerkeerdeRolException
+                                                         cre) {
+        return Response.serverError()
+                .header("X-CUSTOM-ERROR", "500")
+                .entity(new CustomError(500, cre.getMessage()))
+                .build();
+    }
 
     public record NieuwePrestatie(@NotBlank String naam, @NotBlank String omschrijving, @NotNull @Positive long assistentId, @NotBlank String budgethouderVoornaam, @NotBlank String budgethouderFamilienaam){
     }
@@ -39,8 +60,10 @@ public class PrestatieResource {
     @Path("/nieuw")
     @RolesAllowed("assistent")
     @Transactional
-    public Prestatie createPrestatie(@Valid NieuwePrestatie nieuwePrestatie) throws DuplicateKeyException{
+    public Prestatie createPrestatie(@Valid NieuwePrestatie nieuwePrestatie){
             var budgethouder = userService.findByFamilienaam(nieuwePrestatie.budgethouderFamilienaam(), nieuwePrestatie.budgethouderVoornaam());
+            if (!budgethouder.getRol().equals("budgethouder")){
+                throw new UserHeeftVerkeerdeRolException("Deze persoon is geen budgethouder");            }
             var assistent = userService.findById(nieuwePrestatie.assistentId()).orElseThrow(NotFoundException::new);
             var prestatie = new Prestatie(nieuwePrestatie.naam, nieuwePrestatie.omschrijving, assistent, budgethouder);
             var prestatieId = prestatieService.createPrestatie(prestatie);

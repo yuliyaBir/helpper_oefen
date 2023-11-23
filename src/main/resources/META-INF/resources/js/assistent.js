@@ -31,30 +31,34 @@ async function prestatiesZonderGoedkeuring(user){
     const response = await fetch(`prestaties/assistent/${user.id}/zonderGoedkeuring`);
     if (response.ok){
         const prestaties = await response.json();
-        console.log(prestaties);
-        toon("tabelRuimte");
-        verwijderChildElementenVan(prestatieHead);
-        const th = document.createElement("tr");
-        prestatieHead.appendChild(th);
-        th.insertCell().innerText =  "Id";
-        th.insertCell().innerText =  "Naam";
-        th.insertCell().innerText =  "Omschrijving";
-        th.insertCell().innerText =  "Budgethouder";
-        verwijderChildElementenVan(prestatieBody);
-        for (const prestatie of prestaties){
-            const tr = prestatieBody.insertRow();
-            tr.insertCell().innerText =  prestatie.id;
-            tr.insertCell().innerText =  prestatie.naam;
-            tr.insertCell().innerText =  prestatie.omschrijving;
-            tr.insertCell().innerText =  `${prestatie.voornaam} ${prestatie.familienaam}`;
+        if (prestaties.length !== 0){
+            console.log(prestaties);
+            toon("tabelRuimte");
+            verwijderChildElementenVan(prestatieHead);
+            const th = document.createElement("tr");
+            prestatieHead.appendChild(th);
+            th.insertCell().innerText =  "Id";
+            th.insertCell().innerText =  "Naam";
+            th.insertCell().innerText =  "Omschrijving";
+            th.insertCell().innerText =  "Budgethouder";
+            verwijderChildElementenVan(prestatieBody);
+            for (const prestatie of prestaties){
+                const tr = prestatieBody.insertRow();
+                tr.insertCell().innerText =  prestatie.id;
+                tr.insertCell().innerText =  prestatie.naam;
+                tr.insertCell().innerText =  prestatie.omschrijving;
+                tr.insertCell().innerText =  `${prestatie.voornaam} ${prestatie.familienaam}`;
+            }
+        } else{
+            toon("geenPrestaties");
         }
-
     }
 }
 async function prestatiesMetGoedkeuring(user){
     const response = await fetch(`prestaties/assistent/${user.id}/metGoedkeuring`);
     if (response.ok){
         const prestaties = await response.json();
+        if (prestaties.length !== 0){
         console.log(prestaties);
         toon("tabelRuimte");
         verwijderChildElementenVan(prestatieHead);
@@ -77,6 +81,9 @@ async function prestatiesMetGoedkeuring(user){
             tr.insertCell().innerText =  `${prestatie.goedkeuringen.goedgekeurd}`;
             tr.insertCell().innerText =  `${prestatie.goedkeuringen.commentaar}`;
             tr.insertCell().innerText =  `${prestatie.goedkeuringen.uren}`;
+        }
+        }else{
+            toon("geenPrestaties");
         }
     }
 }

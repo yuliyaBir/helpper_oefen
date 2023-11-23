@@ -9,38 +9,51 @@ async function findHuidigeGebruiker(){
         const user = await response.json();
         assistentId = user.id;
         console.log(assistentId);
-}
+    }
+    const knopToevoegen = byId("toevoegen");
+    knopToevoegen.disabled = false;
+    const toegevoegd = byId("toegevoegd");
+    toegevoegd.disabled = true;
     const inputNaam = byId("naam");
     const inputOmschrijving = byId("omschrijving");
     const inputVoornaam = byId("budgethouderVoornaam");
     const inputFamilienaam = byId("budgethouderFamilienaam");
     verbergPrestatieEnFouten();
-byId("toevoegen").onclick = async function (){
-    if (!inputNaam.checkValidity()){
-        toon("naamFout");
-        inputNaam.focus();
+    byId("toevoegen").onclick = async function (){
+        verbergPrestatieEnFouten();
+        if (!inputNaam.checkValidity()){
+            toon("naamFout");
+            inputNaam.value = "";
+            inputNaam.focus();
+            return;
+        }
+        if (!inputOmschrijving.checkValidity()){
+            toon("omschrijvingFout");
+            inputOmschrijving.focus();
+            inputOmschrijving.value = "";
+            return;
+        }
+        if (!inputVoornaam.checkValidity()){
+            toon("budgethouderVoornaamFout");
+            inputVoornaam.focus();
+            inputVoornaam.value = "";
+            return;
+        }
+        if (!inputFamilienaam.checkValidity()){
+            toon("budgethouderFamilienaamFout");
+            inputFamilienaam.focus();
+            inputFamilienaam.value = "";
+            return;
+        }
+        const prestatie = {
+            assistentId: assistentId,
+            budgethouderFamilienaam : inputFamilienaam.value,
+            budgethouderVoornaam : inputVoornaam.value,
+            naam: inputNaam.value,
+            omschrijving: inputOmschrijving.value
+        }
+        await voegToe(prestatie);
     }
-    if (!inputOmschrijving.checkValidity()){
-        toon("omschrijvingFout");
-        inputOmschrijving.focus();
-    }
-    if (!inputVoornaam.checkValidity()){
-        toon("budgethouderVoornaamFout");
-        inputVoornaam.focus();
-    }
-    if (!inputFamilienaam.checkValidity()){
-        toon("budgethouderFamilienaamFout");
-        inputFamilienaam.focus();
-    }
-    const prestatie = {
-        assistentId: assistentId,
-        budgethouderFamilienaam : inputFamilienaam.value,
-        budgethouderVoornaam : inputVoornaam.value,
-        naam: inputNaam.value,
-        omschrijving: inputOmschrijving.value
-    }
-    await voegToe(prestatie);
-}
 
 function verbergPrestatieEnFouten (){
     verberg("prestatieTable");
@@ -58,8 +71,11 @@ async function voegToe(prestatie) {
             headers: {'Content-Type': "application/json"},
             body: JSON.stringify(prestatie)
         });
+    console.log(response);
     if (response.ok) {
         const createdPrestatie = await response.json();
+        knopToevoegen.disabled = true;
+        toegevoegd.hidden = false;
         byId("prestatieTable").hidden = false;
         console.log(createdPrestatie);
         const prestatieBody = byId("prestatieBody");
@@ -69,10 +85,12 @@ async function voegToe(prestatie) {
         tr.insertCell().innerText =  createdPrestatie.omschrijving;
         tr.insertCell().innerText =  `${createdPrestatie.budgethouder.voornaam} ${createdPrestatie.budgethouder.familienaam}`;
     } else {
-        if (response.status === 409) {
-            const responseBody = await response.json();
-            setText("conflict", responseBody.message);
+        if (response.status === 400) {
+            setText("conflict", "Deze persoon is geen budgethouder");
             toon("conflict");
+            inputVoornaam.value = "";
+            inputVoornaam.focus();
+            inputFamilienaam.value = "";
         } else {
             toon("storing");
         }

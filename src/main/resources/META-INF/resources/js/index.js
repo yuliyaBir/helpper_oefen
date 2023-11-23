@@ -2,7 +2,9 @@
 import {byId, toon, verberg, setText, verwijderChildElementenVan} from "./util.js";
 const LOGGED_COOKIE = "quarkus-credential";
 const inputsRuimte = byId("inputsRuimte");
-
+byId("registratie").onclick = function (){
+    window.location = "registratie.html";
+}
 let user;
 verbergAllesBehalveForm();
 findHuidigeUser();
