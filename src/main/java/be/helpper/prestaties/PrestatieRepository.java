@@ -1,13 +1,11 @@
 package be.helpper.prestaties;
 
 import be.helpper.goedkeuringen.Goedkeuring;
-import be.helpper.goedkeuringen.GoedkeuringIsAlToegevoegdException;
-import be.helpper.users.User;
+import be.helpper.exceptions.GoedkeuringIsAlToegevoegdException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
-import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.Optional;

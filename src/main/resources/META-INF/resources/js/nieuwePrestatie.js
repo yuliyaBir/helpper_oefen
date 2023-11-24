@@ -62,7 +62,7 @@ function verbergPrestatieEnFouten (){
     verberg("budgethouderVoornaamFout");
     verberg("budgethouderFamilienaamFout");
     verberg("storing");
-    verberg("conflict");
+    verberg("badRequest");
 }
 async function voegToe(prestatie) {
     var response = await fetch("http://localhost:8080/prestaties/nieuw",
@@ -86,8 +86,8 @@ async function voegToe(prestatie) {
         tr.insertCell().innerText =  `${createdPrestatie.budgethouder.voornaam} ${createdPrestatie.budgethouder.familienaam}`;
     } else {
         if (response.status === 400) {
-            setText("conflict", "Deze persoon is geen budgethouder");
-            toon("conflict");
+            setText("badRequest", "Deze persoon is geen budgethouder");
+            toon("badRequest");
             inputVoornaam.value = "";
             inputVoornaam.focus();
             inputFamilienaam.value = "";

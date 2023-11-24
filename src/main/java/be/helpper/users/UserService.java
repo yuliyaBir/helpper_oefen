@@ -4,13 +4,13 @@ import be.helpper.exceptions.UserIsAlBestaanException;
 import io.quarkus.elytron.security.common.BcryptUtil;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import java.util.Optional;
 
 @ApplicationScoped
-
 public class UserService {
     @Inject
     UserRepository userRepository;
@@ -23,8 +23,10 @@ public class UserService {
     public User findByFamilienaam(String familienaam, String voornaam){
         return userRepository.findByFamilienaam(familienaam, voornaam).orElseThrow(NotFoundException::new);
     }
+
     public User createUser(User user){
         Optional<User> byEmail = userRepository.findByEmail(user.getEmail());
+//        return userRepository.createUser(user);
         if (byEmail.isEmpty()) {
             return userRepository.createUser(user);
         } else {

@@ -2,7 +2,6 @@ package be.helpper.prestaties;
 
 import be.helpper.dto.PrestatieMetAssistentNaam;
 import be.helpper.dto.PrestatieMetBudgethouderNaam;
-import be.helpper.exceptions.CustomError;
 import be.helpper.exceptions.UserHeeftVerkeerdeRolException;
 import be.helpper.users.UserService;
 import jakarta.annotation.security.RolesAllowed;
@@ -15,11 +14,6 @@ import jakarta.validation.constraints.Positive;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.jboss.resteasy.reactive.server.ServerExceptionMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-
 import java.util.List;
 
 @Path("/prestaties")
@@ -38,16 +32,6 @@ public class PrestatieResource {
 //                .entity(new CustomError(500, "nok"))
 //                .build();
 //    }
-
-    @ServerExceptionMapper(UserHeeftVerkeerdeRolException.class)
-    public Response handleCustomRuntimeException(UserHeeftVerkeerdeRolException
-                                                         cre) {
-        return Response.serverError()
-                .header("X-CUSTOM-ERROR", "500")
-                .entity(new CustomError(500, cre.getMessage()))
-                .build();
-    }
-
     public record NieuwePrestatie(@NotBlank String naam, @NotBlank String omschrijving, @NotNull @Positive long assistentId, @NotBlank String budgethouderVoornaam, @NotBlank String budgethouderFamilienaam){
     }
     private record PrestatieBeknopt(long id, String naam, String omschrijving, String assistentVoornaam, String assistentFamilienaam, String budgethouderVoornaam, String budgethouderFamilienaam){

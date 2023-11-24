@@ -8,7 +8,6 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
-import org.jboss.logging.annotations.Param;
 
 import java.security.Principal;
 
@@ -21,7 +20,7 @@ public class UserResource {
     @Inject
     UserService service;
     @GET
-    @RolesAllowed({"assistent", "budgethouder"})
+    @RolesAllowed("")
     @Path("/{id}")
     public User findById(@PathParam("id") long id) {
         return service.findById(id).orElseThrow(NotFoundException::new);
@@ -31,10 +30,10 @@ public class UserResource {
     @Path("/email")
     public Response findByEmail(@QueryParam("email") String email) {
         User user = service.findByEmail(email).orElseThrow(NotFoundException::new);
-
         if (user != null) {
             return Response.ok(user).build();
-        } else {
+        }
+        else {
             return Response.status(Response.Status.NOT_FOUND).entity("User not found for email: " + email).build();
         }
     }
@@ -60,7 +59,7 @@ public class UserResource {
     }
     @Transactional(Transactional.TxType.REQUIRED)
     @DELETE
-    @RolesAllowed({"assistent", "budgethouder"})
+//    @RolesAllowed({"assistent", "budgethouder"})
     @Path("/delete/{id}")
     public void deleteUser(@PathParam("id") long id){
         service.deleteUser(id);
@@ -76,12 +75,5 @@ public class UserResource {
         }
         // translates to "no content" response
         return null;
-    }
-    @GET
-    @PermitAll
-    @Path("public")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String freeForAll() {
-        return "Welcom to Helpper!";
     }
 }
