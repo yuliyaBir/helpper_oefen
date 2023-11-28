@@ -11,5 +11,4 @@ public class UserHeeftVerkeerdeRolExceptionHandler implements ExceptionMapper<Us
     {
         return Response.status(400, "Deze persoon is geen budgethouder").build();
     }
-
 }

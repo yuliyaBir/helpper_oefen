@@ -1,6 +1,5 @@
 package be.helpper.users;
 
-
 import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.security.jpa.Password;
 import io.quarkus.security.jpa.Roles;

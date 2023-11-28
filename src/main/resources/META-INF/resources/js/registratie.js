@@ -1,5 +1,6 @@
 "use strict"
 import {byId, verberg, toon, setText, verwijderChildElementenVan} from "./util.js";
+
 const knopToevoegen = byId("registreren");
 
 
@@ -41,16 +42,16 @@ knopToevoegen.onclick = async function () {
     }
     console.log(inputWachtwoord);
     const nieuweUser = {
-            voornaam: inputVoornaam.value,
-            familienaam: inputFamilienaam.value,
-            email: inputEmail.value,
-            wachtwoord: inputWachtwoord.value,
-            rol: inputRol.value
+        voornaam: inputVoornaam.value,
+        familienaam: inputFamilienaam.value,
+        email: inputEmail.value,
+        wachtwoord: inputWachtwoord.value,
+        rol: inputRol.value
     }
     console.log(nieuweUser);
-    // await checkVoorAlBestaandeUser(inputEmail.value);
     await voegToe(nieuweUser);
 }
+
 async function voegToe(nieuweUser) {
     var response = await fetch("/api/users/nieuweUser",
         {
@@ -75,7 +76,8 @@ async function voegToe(nieuweUser) {
         }
     }
 }
-function verbergFouten (){
+
+function verbergFouten() {
     verberg("voornaamFout");
     verberg("familienaamFout");
     verberg("emailFout");
