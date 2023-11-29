@@ -94,15 +94,17 @@ async function findHuidigeGebruiker() {
                 inputVoornaam.value = "";
                 inputVoornaam.focus();
                 inputFamilienaam.value = "";
-            }
-            if (response.status === 404) {
-                setText("badRequest", "Deze budgethouder is niet gevonden");
-                toon("badRequest");
-                inputVoornaam.value = "";
-                inputVoornaam.focus();
-                inputFamilienaam.value = "";
-            } else {
-                toon("storing");
+            } else{
+                if (response.status === 404) {
+                    setText("badRequest", "Deze budgethouder is niet gevonden");
+                    toon("badRequest");
+                    inputVoornaam.value = "";
+                    inputVoornaam.focus();
+                    inputFamilienaam.value = "";
+                } else {
+                    verberg("badRequest");
+                    toon("storing");
+                }
             }
         }
     }

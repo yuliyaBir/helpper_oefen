@@ -43,6 +43,7 @@ async function nieuwePrestaties(user) {
             th.insertCell().innerText = "Naam";
             th.insertCell().innerText = "Omschrijving";
             th.insertCell().innerText = "Assistent";
+            th.insertCell().innerText = "Goedkeuren";
             verwijderChildElementenVan(prestatieBody);
             for (const prestatie of prestaties) {
                 const tr = prestatieBody.insertRow();
