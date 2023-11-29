@@ -1,0 +1,11 @@
+version: "3"
+services:
+  vintagestore_database:
+    image: "postgres:14"
+    container_name: "helpper"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=helpper
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=quarkus

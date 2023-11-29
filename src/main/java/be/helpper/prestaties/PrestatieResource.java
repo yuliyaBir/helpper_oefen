@@ -25,13 +25,6 @@ public class PrestatieResource {
     @Inject
     UserService userService;
 
-//    @ServerExceptionMapper({UserHeeftVerkeerdeRolException.class})
-//    public Response handleUserHeeftVerkeerdeRolException(UserHeeftVerkeerdeRolException cre) {
-//        return  Response.serverError()
-//                .header("X-CUSTOM-EXCEPTION", "500")
-//                .entity(new CustomError(500, "nok"))
-//                .build();
-//    }
     public record NieuwePrestatie(@NotBlank String naam, @NotBlank String omschrijving, @NotNull @Positive long assistentId, @NotBlank String budgethouderVoornaam, @NotBlank String budgethouderFamilienaam){
     }
     private record PrestatieBeknopt(long id, String naam, String omschrijving, String assistentVoornaam, String assistentFamilienaam, String budgethouderVoornaam, String budgethouderFamilienaam){

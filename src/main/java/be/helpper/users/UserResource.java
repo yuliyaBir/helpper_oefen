@@ -20,7 +20,7 @@ public class UserResource {
     @Inject
     UserService service;
     @GET
-    @RolesAllowed("")
+    @RolesAllowed({"assistent", "budgethouder"})
     @Path("/{id}")
     public User findById(@PathParam("id") long id) {
         return service.findById(id).orElseThrow(NotFoundException::new);
@@ -59,7 +59,7 @@ public class UserResource {
     }
     @Transactional(Transactional.TxType.REQUIRED)
     @DELETE
-//    @RolesAllowed({"assistent", "budgethouder"})
+    @RolesAllowed({"assistent", "budgethouder"})
     @Path("/delete/{id}")
     public void deleteUser(@PathParam("id") long id){
         service.deleteUser(id);
@@ -73,7 +73,6 @@ public class UserResource {
             var userEmail = userPrincipal.getName();
            return (User) findByEmail(userEmail).getEntity();
         }
-        // translates to "no content" response
         return null;
     }
 }
