@@ -1,12 +1,9 @@
 package be.helpper.users;
 
 import be.helpper.exceptions.UserIsAlBestaanException;
-import io.quarkus.elytron.security.common.BcryptUtil;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
-import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import java.util.Optional;
 

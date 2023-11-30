@@ -1,16 +1,11 @@
 package be.helpper.goedkeuringen;
 
 import be.helpper.dto.NieuweGoedkeuring;
-import be.helpper.prestaties.Prestatie;
-import be.helpper.prestaties.PrestatieService;
-import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 

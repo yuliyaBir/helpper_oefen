@@ -1,8 +1,6 @@
 package be.helpper.goedkeuringen;
 
-import be.helpper.dto.NieuweGoedkeuring;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -25,11 +23,6 @@ public class Goedkeuring {
     private String commentaar;
     @NotNull
     private int uren;
-//    @OneToOne
-//    @MapsId
-//    @JoinColumn(name = "prestatie_id")
-//    @JsonIgnore
-//    private Prestatie prestatie;
 
 
     public Goedkeuring() {

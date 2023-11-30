@@ -1,12 +1,9 @@
 package be.helpper.goedkeuringen;
 
-import be.helpper.prestaties.Prestatie;
 import be.helpper.prestaties.PrestatieRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-
-import java.util.Optional;
 
 @ApplicationScoped
 public class GoedkeuringService {

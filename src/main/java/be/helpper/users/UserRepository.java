@@ -1,15 +1,10 @@
 package be.helpper.users;
 
-import be.helpper.goedkeuringen.Goedkeuring;
-import io.smallrye.mutiny.Uni;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.NotFoundException;
 
 import java.util.Optional;
 
@@ -40,7 +35,6 @@ public class UserRepository {
         em.persist(user);
         em.flush();
         return findById(user.getId()).get();
-//        return em.find(User.class, user.getId());
     }
 
     @Transactional

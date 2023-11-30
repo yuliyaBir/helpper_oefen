@@ -4,8 +4,6 @@ import be.helpper.goedkeuringen.Goedkeuring;
 import be.helpper.users.User;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
-
 @Entity
 @Table(name = "prestaties")
 public class Prestatie {
@@ -38,15 +36,6 @@ public class Prestatie {
 //                new Goedkeuring(id, LocalDate.MIN, "", 0);
     }
 
-//    public Prestatie(String naam, String omschrijving, User assistent, User budgethouder) {
-//
-//        this.naam = naam;
-//        this.omschrijving = omschrijving;
-//        this.assistent = assistent;
-//        this.budgethouder = budgethouder;
-//        this.goedkeuring = new Goedkeuring(LocalDate.EPOCH, "", 0);
-//    }
-
     public Prestatie() {
     }
 
@@ -78,8 +67,4 @@ public class Prestatie {
     }
 
 
-
-//    public Set<Goedkeuring> getGoedkeuring() {
-//        return Collections.unmodifiableSet(goedkeuring);
-//    }
 }
