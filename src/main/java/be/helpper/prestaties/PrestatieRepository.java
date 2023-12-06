@@ -22,23 +22,23 @@ public class PrestatieRepository{
     public Optional<Prestatie> findPrestatieById(long id){
         return Optional.ofNullable(em.find(Prestatie.class, id));
     }
-    public List<Prestatie> lijstVanPrestatiesZonderGoedkeuringVoorBepaaldeAssistent(long assistentId){
+    public List<Prestatie> prestatiesWithoutGoedkeuringForASpecificAssistent(long assistentId){
         var query = em.createQuery("SELECT p FROM Prestatie p WHERE p.goedkeuring = null and p.assistent.id  = :assistentId", Prestatie.class);
         query.setParameter("assistentId", assistentId);
         return query.getResultList();
     }
-    public List<Prestatie> lijstVanPrestatiesZonderGoedkeuringVoorBepaaldeBudgethouder(long budgethouderId){
+    public List<Prestatie> prestatiesWithoutGoedkeuringForASpecificBudgethouder(long budgethouderId){
         var query = em.createQuery("SELECT p FROM Prestatie p WHERE p.goedkeuring = null and p.budgethouder.id = :budgethouderId", Prestatie.class);
         query.setParameter("budgethouderId", budgethouderId);
         return query.getResultList();
     }
 
-    public List<Prestatie> lijstVanPrestatiesMetGoedkeuringVoorBepaaldeBudgethouder(long budgethouderId){
+    public List<Prestatie> prestatiesWithGoedkeuringForASpecificBudgethouder(long budgethouderId){
         var query = em.createQuery("SELECT p FROM Prestatie p WHERE p.goedkeuring != null and p.budgethouder.id = :budgethouderId", Prestatie.class);
         query.setParameter("budgethouderId", budgethouderId);
         return query.getResultList();
     }
-    public List<Prestatie> lijstVanPrestatiesMetGoedkeuringVoorBepaaldeAssistent(long assistentId){
+    public List<Prestatie> prestatiesWithGoedkeuringForASpecificAssistent(long assistentId){
         var query = em.createQuery("SELECT p FROM Prestatie p WHERE p.goedkeuring != null and p.assistent.id  = :assistentId", Prestatie.class);
         query.setParameter("assistentId", assistentId);
         return query.getResultList();

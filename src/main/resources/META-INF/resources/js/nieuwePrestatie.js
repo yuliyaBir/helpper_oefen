@@ -68,7 +68,7 @@ async function findHuidigeGebruiker() {
     }
 
     async function voegToe(prestatie) {
-        var response = await fetch("http://localhost:8080/prestaties/nieuw",
+        var response = await fetch("http://localhost:8080/prestaties/create",
             {
                 method: "POST",
                 headers: {'Content-Type': "application/json"},

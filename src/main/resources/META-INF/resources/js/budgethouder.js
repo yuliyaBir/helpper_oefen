@@ -28,7 +28,7 @@ async function findHuidigeUser() {
 }
 
 async function nieuwePrestaties(user) {
-    const response = await fetch(`prestaties/budgethouder/${user.id}/zonderGoedkeuring`);
+    const response = await fetch(`prestaties/budgethouder/${user.id}/withoutGoedkeuring`);
     if (response.ok) {
         const prestaties = await response.json();
         if (prestaties.length !== 0) {
@@ -68,7 +68,7 @@ async function nieuwePrestaties(user) {
 }
 
 async function prestatiesMetGoedkeuring(user) {
-    const response = await fetch(`prestaties/budgethouder/${user.id}/metGoedkeuring`);
+    const response = await fetch(`prestaties/budgethouder/${user.id}/withGoedkeuring`);
     if (response.ok) {
         const prestaties = await response.json();
         if (prestaties.length !== 0) {

@@ -29,7 +29,7 @@ async function findHuidigeUser() {
 }
 
 async function prestatiesZonderGoedkeuring(user) {
-    const response = await fetch(`prestaties/assistent/${user.id}/zonderGoedkeuring`);
+    const response = await fetch(`prestaties/assistent/${user.id}/withoutGoedkeuring`);
     if (response.ok) {
         const prestaties = await response.json();
         if (prestaties.length !== 0) {
@@ -59,7 +59,7 @@ async function prestatiesZonderGoedkeuring(user) {
 }
 
 async function prestatiesMetGoedkeuring(user) {
-    const response = await fetch(`prestaties/assistent/${user.id}/metGoedkeuring`);
+    const response = await fetch(`prestaties/assistent/${user.id}/withGoedkeuring`);
     if (response.ok) {
         const prestaties = await response.json();
         if (prestaties.length !== 0) {

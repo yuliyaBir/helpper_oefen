@@ -33,9 +33,7 @@ public class Prestatie {
         this.assistent = assistent;
         this.budgethouder = budgethouder;
         this.goedkeuring = null;
-//                new Goedkeuring(id, LocalDate.MIN, "", 0);
     }
-
     public Prestatie() {
     }
 
@@ -65,6 +63,4 @@ public class Prestatie {
     public void setId(long id) {
         this.id = id;
     }
-
-
 }
