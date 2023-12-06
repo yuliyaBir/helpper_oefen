@@ -12,9 +12,9 @@ public class GoedkeuringService {
     @Inject
     PrestatieRepository prestatieRepository;
     @Transactional
-    public long createGoedkeuringVoorPrestatie(long prestatieId, Goedkeuring goedkeuring){
-        var goedkeuringMetId = goedkeuringRepository.createGoedkeuring(goedkeuring);
-        prestatieRepository.updatePrestatie(prestatieId, goedkeuringMetId);
-        return goedkeuringMetId.getId();
+    public long createGoedkeuringForPrestatie(long prestatieId, Goedkeuring goedkeuring){
+        var goedkeuringWithId = goedkeuringRepository.createGoedkeuring(goedkeuring);
+        prestatieRepository.updatePrestatie(prestatieId, goedkeuringWithId);
+        return goedkeuringWithId.getId();
     }
 }

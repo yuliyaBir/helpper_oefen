@@ -1,6 +1,6 @@
 package be.helpper.goedkeuringen;
 
-import be.helpper.dto.NieuweGoedkeuring;
+import be.helpper.dto.NewGoedkeuring;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -18,9 +18,9 @@ public class GoedkeuringResource {
     GoedkeuringService goedkeuringService;
     @POST
     @RolesAllowed("budgethouder")
-    @Path("/nieuwVoorPrestatie/{id}")
-    public long createGoedkeuring(@Valid NieuweGoedkeuring nieuweGoedkeuring, @PathParam("id") long id){
-        var goedkeuring = new Goedkeuring(LocalDate.now(), nieuweGoedkeuring.commentaar(), nieuweGoedkeuring.uren());
-        return goedkeuringService.createGoedkeuringVoorPrestatie(id, goedkeuring);
+    @Path("/create/{prestatieId}")
+    public long createGoedkeuring(@Valid NewGoedkeuring newGoedkeuring, @PathParam("prestatieId") long id){
+        var goedkeuring = new Goedkeuring(LocalDate.now(), newGoedkeuring.commentaar(), newGoedkeuring.uren());
+        return goedkeuringService.createGoedkeuringForPrestatie(id, goedkeuring);
     }
 }

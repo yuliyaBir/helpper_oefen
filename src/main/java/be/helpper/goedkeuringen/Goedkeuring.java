@@ -9,9 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "goedkeuringen")
-//@Access(AccessType.FIELD)
 public class Goedkeuring {
-
 
     @Id
     @GeneratedValue
@@ -23,7 +21,6 @@ public class Goedkeuring {
     private String commentaar;
     @NotNull
     private int uren;
-
 
     public Goedkeuring() {
     }
@@ -37,10 +34,7 @@ public class Goedkeuring {
     public long getId() {
         return id;
     }
-//    public Prestatie getPrestatie() {
-//        return prestatie;
-//    }
-public void setId(long id) {
+    public void setId(long id) {
     this.id = id;
 }
 

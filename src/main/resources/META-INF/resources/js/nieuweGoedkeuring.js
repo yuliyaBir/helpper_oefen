@@ -1,5 +1,5 @@
 "use strict"
-import {byId, verberg, toon, setText, verwijderChildElementenVan} from "./util.js";
+import {byId, verberg, toon, setText} from "./util.js";
 
 const knopToevoegen = byId("toevoegen");
 knopToevoegen.disabled = false;
@@ -42,7 +42,7 @@ function verbergFouten() {
 }
 
 async function voegToe(goedkeuring) {
-    var response = await fetch(`/goedkeuringen/nieuwVoorPrestatie/${prestatie.id}`,
+    var response = await fetch(`/goedkeuringen/create/${prestatie.id}`,
         {
             method: "POST",
             headers: {'Content-Type': "application/json"},
