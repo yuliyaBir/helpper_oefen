@@ -1,7 +1,7 @@
 package be.helpper.prestaties;
 
 import be.helpper.goedkeuringen.Goedkeuring;
-import be.helpper.exceptions.GoedkeuringIsAlToegevoegdException;
+import be.helpper.exceptions.GoedkeuringIsAlreadyAddedException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -49,7 +49,7 @@ public class PrestatieRepository{
             prestatie.setGoedkeuring(goedkeuring);
             em.persist(prestatie);
         } else{
-            throw new GoedkeuringIsAlToegevoegdException();
+            throw new GoedkeuringIsAlreadyAddedException();
         }
 
     }

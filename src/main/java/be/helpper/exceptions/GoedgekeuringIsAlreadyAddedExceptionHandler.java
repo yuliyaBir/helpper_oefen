@@ -5,9 +5,9 @@ import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
 
 @Provider
-public class GoedgekeuringIsAlToegevoegdExceptionHandler implements ExceptionMapper<GoedkeuringIsAlToegevoegdException> {
+public class GoedgekeuringIsAlreadyAddedExceptionHandler implements ExceptionMapper<GoedkeuringIsAlreadyAddedException> {
     @Override
-    public Response toResponse(GoedkeuringIsAlToegevoegdException exception)
+    public Response toResponse(GoedkeuringIsAlreadyAddedException exception)
     {
         return Response.status(409, "Goedkeuring voor deze prestatie is al toegevoegd.").build();
     }

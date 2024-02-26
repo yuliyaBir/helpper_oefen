@@ -5,9 +5,9 @@ import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
 
 @Provider
-public class UserHeeftVerkeerdeRolExceptionHandler implements ExceptionMapper<UserHeeftVerkeerdeRolException> {
+public class UserHasWrongRoleExceptionHandler implements ExceptionMapper<UserHasWrongRoleException> {
     @Override
-    public Response toResponse(UserHeeftVerkeerdeRolException exception)
+    public Response toResponse(UserHasWrongRoleException exception)
     {
         return Response.status(400, "Deze persoon is geen budgethouder").build();
     }

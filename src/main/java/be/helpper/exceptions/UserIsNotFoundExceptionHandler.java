@@ -5,9 +5,9 @@ import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
 
 @Provider
-public class UserIsNietGevondenExceptionHandler implements ExceptionMapper<UserIsNietGevondenException> {
+public class UserIsNotFoundExceptionHandler implements ExceptionMapper<UserIsNotFoundException> {
     @Override
-    public Response toResponse(UserIsNietGevondenException exception)
+    public Response toResponse(UserIsNotFoundException exception)
     {
         return Response.status(404, "Deze persoon is niet gevonden").build();
     }

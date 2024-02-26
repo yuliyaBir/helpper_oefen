@@ -1,6 +1,6 @@
 package be.helpper.users;
 
-import be.helpper.exceptions.UserIsAlBestaanException;
+import be.helpper.exceptions.UserAlreadyExistsException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.NotFoundException;
@@ -27,7 +27,7 @@ public class UserService {
         if (byEmail.isEmpty()) {
             return userRepository.createUser(user);
         } else {
-            throw new UserIsAlBestaanException();
+            throw new UserAlreadyExistsException();
         }
     }
     public void deleteUser(long id){

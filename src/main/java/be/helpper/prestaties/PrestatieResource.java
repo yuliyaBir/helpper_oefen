@@ -2,7 +2,7 @@ package be.helpper.prestaties;
 
 import be.helpper.dto.PrestatieWithAssistentName;
 import be.helpper.dto.PrestatieWithBudgethouderName;
-import be.helpper.exceptions.UserHeeftVerkeerdeRolException;
+import be.helpper.exceptions.UserHasWrongRoleException;
 import be.helpper.users.UserService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -39,7 +39,7 @@ public class PrestatieResource {
     public Prestatie createPrestatie(@Valid PrestatieResource.NewPrestatie newPrestatie){
             var budgethouder = userService.findByFamilienaam(newPrestatie.budgethouderFamilienaam(), newPrestatie.budgethouderVoornaam());
             if (!budgethouder.getRol().equals("budgethouder")){
-                throw new UserHeeftVerkeerdeRolException("Deze persoon is geen budgethouder");            }
+                throw new UserHasWrongRoleException("Deze persoon is geen budgethouder");            }
             var assistent = userService.findById(newPrestatie.assistentId()).orElseThrow(NotFoundException::new);
             var prestatie = new Prestatie(newPrestatie.naam, newPrestatie.omschrijving, assistent, budgethouder);
             var prestatieId = prestatieService.createPrestatie(prestatie);
@@ -80,7 +80,6 @@ public class PrestatieResource {
     public List<PrestatieWithBudgethouderName> prestatiesWithGoedkeuringForASpecificAssistent(@PathParam("assistentId")long assistentId){
         return prestatieService.prestatiesWithGoedkeuringForASpecificAssistent(assistentId).stream().map(PrestatieWithBudgethouderName::new).toList();
     }
-
     @DELETE
     @Transactional
     @RolesAllowed({"budgethouder", "assistent"})
